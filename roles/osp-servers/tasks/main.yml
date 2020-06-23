@@ -29,3 +29,14 @@
     timeout: 200
   with_dict: "{{ osp_servers }}"
 
+- name: Download yum repository config file
+  get_url:
+    url: http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
+    dest: ./internal.repo
+  delegate_to: localhost
+
+- name: Copy repo file to the instances
+  copy:
+    src: ./internal.repo
+    dest: /etc/yum.repos.d/internal.repo
+    mode: '0644'
