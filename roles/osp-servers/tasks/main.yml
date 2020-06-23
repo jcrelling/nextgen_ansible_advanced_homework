@@ -15,7 +15,7 @@
     meta: "{{ item.value.meta [0] }}"
     userdata: |
       #!/bin/bash
-      echo "{{ item.value.ssh_public_key | ssh_public_key }}" >> /home/cloud-user/.ssh/authorized_keys
+      echo "{{ ssh_public_key }}" >> /home/cloud-user/.ssh/authorized_keys
   with_dict: "{{ osp_servers }}"
 
 - name: Add floating IP to instance
