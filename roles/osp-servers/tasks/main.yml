@@ -16,8 +16,6 @@
     userdata: |
       #!/bin/bash
       echo "{{ ssh_public_key }}" >> /home/cloud-user/.ssh/authorized_keys
-      curl -o /etc/yum.repos.d/internal.repo http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
-      chmod 0644 /etc/yum.repos.d/internal.repo
   with_dict: "{{ osp_servers }}"
 
 - name: Add floating IP to instance
