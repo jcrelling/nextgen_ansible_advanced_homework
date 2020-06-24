@@ -1,1 +1,1 @@
-payload: haproxy
+lb_app: haproxy

@@ -1,22 +1,20 @@
 ---
 
-- name: install {{ payload }}
+- name: Installing {{ lb_app }}
   yum:
-    name: "{{ payload }}"
+    name: "{{ lb_app }}"
     state: latest
+  notify: restart_app
 
-- name: enable {{ payload }} at boot
-  service:
-    name: "{{ payload }}"
-    enabled: yes
-
-- name: configure haproxy to load balance over app servers
+- name: Configuring {{ lb_app }}
   template:
     src: haproxy.cfg.j2
     dest: /etc/haproxy/haproxy.cfg
     mode: 0644
+  notify: restart_app
 
-- name: start {{ payload }}
+- name: Enable and start {{ lb_app }}
   service:
-    name: "{{ payload }}"
-    state: restarted
+    name: "{{ lb_app }}"
+    enabled: yes
+    state: started
