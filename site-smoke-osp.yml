@@ -1,8 +1,17 @@
 - hosts: workstation
   gather_facts: false
+  roles:
+  - name: osp-facts  
+
+- hosts: apps
+  gather_facts: false
   tasks:
-  - name: OpenStack servers
   - name: Curl website
+    uri:
+      url: "http://localhost"
+      return_content: yes
+      status_code: 200
+    register: webpage  
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
