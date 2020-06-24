@@ -1,7 +1,6 @@
 ---
 
-- name: start {{ payload }}
+- name: restart_app
   service:
-    name: tomcat
-    state: started
-
+    name: "{{ http_app_service }}"
+    state: restarted

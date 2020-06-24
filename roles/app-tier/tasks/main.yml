@@ -1,27 +1,27 @@
 ---
 
-- name: install {{ payload }}
+- name: Installing {{ http_app }}
   yum:
-    name: "{{ payload }}"
+    name: "{{ http_app }}"
     state: latest
+  notify:
+    - restart_app
 
-- name: enable {{ payload }} at boot
-  service:
-    name: "{{ payload }}"
-    enabled: yes
-
-- name: create tomcat default web directory
+- name: Creating {{ http_app }} web root directory
   file:
-    path: "{{ tomcat_web_root }}"
+    path: "{{ http_web_root }}"
     state: directory
 
-- name: copy static index.html to tomcat webroot
+- name: Create index.html for {{ http_app }} on {{ http_web_root }}
   template:
     src: index.html.j2
-    dest: "{{ tomcat_web_root }}/index.html"
+    dest: "{{ http_web_root }}/index.html"
     mode: 0644
+  notify:
+    - restart_app
 
-- name: restart tomcat
+- name: Enable {{ http_app }} to start at boot and start
   service:
-    name: "{{ payload }}"
-    state: restarted
+    name: "{{ http_app_service }}"
+    enabled: yes
+    state: started
