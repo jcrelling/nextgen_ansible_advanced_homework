@@ -2,11 +2,8 @@
   gather_facts: false
   roles:
   - name: osp-facts  
-
-- hosts: apps
-  gather_facts: false
   tasks:
-  - name: Curl website
+  - name: Smoke test to verify URL availability
     uri:
       url: "http://localhost:8080"
       return_content: yes
@@ -16,21 +13,8 @@
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
     when: "'Ansible has done its job' not in webpage.content"
-    tags:
-      - osp.smoke
 
-- hosts: frontends
+- hosts: appsdb
   gather_facts: false
   tasks:
-  - name: Curl website
-    uri:
-      url: "http://localhost"
-      return_content: yes
-      status_code: 200
-    register: webpage  
-
-  - name: Fail if 'Ansible has done its job' is not in the page content
-    fail:
-    when: "'Ansible has done its job' not in webpage.content"
-    tags:
-      - osp.smoke
+  - name: Smoke test to varify DB availability

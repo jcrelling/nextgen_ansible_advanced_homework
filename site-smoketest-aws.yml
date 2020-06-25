@@ -1,14 +1,13 @@
 - hosts: frontends
   gather_facts: false
   tasks:
-  - name: Curl website
+  - name: Smoke test to verify URL availability
     uri:
       url: "http://localhost"
       return_content: yes
       status_code: 200
     register: webpage
-        
-  - debug: var=webpage.content
+
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
