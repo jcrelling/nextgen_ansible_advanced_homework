@@ -13,3 +13,10 @@
     fail:
     when: "'Ansible has done its job' not in webpage.content"
 
+- hosts: appdbs
+  gather_facts: false
+  tasks:
+  - name: Smoke test to verify DB availability
+    become: true
+    become_user: postgres
+    postgresql_info:  

@@ -23,8 +23,4 @@
   - name: Smoke test to verify DB availability
     become: true
     become_user: postgres
-    postgresql_info:
-    register: pg_databases_info
- 
-  - debug:
-      var: pg_databases_info    
+    postgresql_info:  
