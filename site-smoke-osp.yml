@@ -5,7 +5,7 @@
   tasks:
   - name: Smoke test to verify URL availability
     uri:
-      url: "http://localhost:8080"
+      url: "http://localhost"
       return_content: yes
       status_code: 200
     register: webpage  
