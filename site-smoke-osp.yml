@@ -17,4 +17,11 @@
 - hosts: appsdb
   gather_facts: false
   tasks:
-  - name: Smoke test to varify DB availability
+  - name: Smoke test to verify DB availability
+    become: true
+    become_user: postgres
+    postgresql_info:
+    register: pg_databases_info
+ 
+  - debug:
+      var: pg_databases_info    
